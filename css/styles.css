@@ -7,7 +7,7 @@ header{
 }
 
 #navbar{
-    background: linear-gradient(90deg, #4f87ef, #7bc3f9 25%, #4f87ef);
+    background: linear-gradient(90deg, #7aef4f, #cff97b 25%, #01c21e);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
 
@@ -186,7 +186,7 @@ header{
 /*START FOOTER*/
 
 #footer {
-    background: linear-gradient(90deg, #4f87ef, #7bc3f9 25%, #4f87ef);
+    background: linear-gradient(90deg, #7aef4f, #cff97b 25%, #01c21e);
 }
 
 #footer a, h6 {
