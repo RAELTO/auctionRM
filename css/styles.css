@@ -49,6 +49,14 @@ header{
     color: #000;
 }
 
+#navbar .navbar-nav .msg span{
+    color: #fff;
+}
+
+#navbar .navbar-nav .msg span:hover{
+    color: #fffb01;
+}
+
 /*END NAVBAR*/
 
 /*START LOGIN*/
