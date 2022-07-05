@@ -1,0 +1,208 @@
+/*START NAVBAR*/
+header{
+    z-index: 999;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+#navbar{
+    background: linear-gradient(90deg, #4f87ef, #7bc3f9 25%, #4f87ef);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+#navbar img{
+    width: 50px;
+    height: 50px;
+}
+
+#navbar .navbar-brand span{
+    border: 3px solid #fff;
+    color: #000;
+    font-weight: bold;
+}
+
+#navbar a{
+    color: #000;
+    font-weight: bold;
+}
+
+#navbar a:hover{
+    color: #fff;
+}
+
+#navbar .logout:hover{
+    color: red;
+}
+
+#navbar .nav-item .profile{
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+#navbar .dropdown-menu a:hover{
+    color: #4f87ef;
+    cursor: pointer;
+}
+
+#navbar .navbar-nav .msg:hover{
+    color: #000;
+}
+
+/*END NAVBAR*/
+
+/*START LOGIN*/
+.body2{
+    background: linear-gradient(90deg, #4f87ef, #7bdbf9 25%, #4fdfef);
+}
+
+#login .card-login{
+    background: rgba(0,0,0,0.15);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 25px 45px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+    text-align: center;
+}
+
+#login .card-login input[type="email"], input[type="password"]{
+    width: 80%;
+    margin: auto;
+}
+
+#login .card-header{
+    background-color: #191919;
+    font-weight: bold;
+    color: #fff;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#login .card-body form label{
+    font-size: 25px;
+    font-weight: bold;
+    color: #000;
+}
+
+#login .card-body form .form-text{
+    font-weight: bold;
+    color: #000;
+}
+
+#login .card-body form .logbtn{
+    margin: auto;
+    border: 0;
+    transition: 0.4s all ease;
+    font-weight: bold;
+}
+
+#login .card-body form .logbtn:hover{
+    background-color: #fff;
+    color: #000;
+}
+
+
+#login .logcontainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+/*END LOGIN*/
+
+/*START ERROR 401*/
+#app2 .notvalid{
+    font-weight: bold;
+    font-size: 50px;
+}
+
+#app2 .container{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+/*END ERROR 401*/
+
+/*START CARDS*/
+#characters .menu-title{
+    color: #000;
+}
+
+#characters hr{
+    color: #000;
+}
+
+#characters .card{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.09);
+    transition: 0.2s ease;
+}
+
+#characters .card:hover{
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5);
+}
+
+#characters .card span{
+    border: none;
+}
+
+#characters .card-body p{
+    text-align: justify;
+}
+
+#characters .card-body h5{
+    font-weight: bold;
+    color: #0a3991;
+}
+
+#characters .card-body span{
+    color: #000;
+}
+
+#characters .card-footer{
+    color: #fff;
+    background-color: #000;
+}
+
+#characters .card-footer img{
+    width: 60px;
+    height: 40px;
+    margin: auto;
+    display: flex;
+}
+
+#characters .admintable img{
+    border-radius: 50%;
+    border: 2px solid #4f94ef;
+}
+/*END CARDS*/
+
+/*START FOOTER*/
+
+#footer {
+    background: linear-gradient(90deg, #4f87ef, #7bc3f9 25%, #4f87ef);
+}
+
+#footer a, h6 {
+    text-decoration: none;
+    color: #000;
+}
+
+#footer h6 i{
+    font-size: 20px;
+}
+
+#footer a{
+    color: #000;
+}
+
+#footer a:hover{
+    color: #fff;
+}
+/*END FOOTER*/
