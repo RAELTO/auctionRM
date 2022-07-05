@@ -4,6 +4,7 @@ var app = new Vue({
     el: '#app',
     data: {
         users: [],
+        usession: [],//stores user session profile
         newUser: {
             name: '',
             username: '',
@@ -26,13 +27,13 @@ var app = new Vue({
                             ...this.newUser
                         });
                         this.clearFields();
-                        alert('Your account has been created successfully');
+                        this.mensaje("Your account has been successfully created", "success");
                     }else{
-                        alert('Password and confirm password doesnt match');
+                        this.mensaje("Passsword and confirm password doesnt match", "error");
                     }
                 
             }else{
-                alert('Pleas fill all the fields');
+                this.mensaje("All the fields are required", "error");
             }
         },
         clearFields(){
@@ -44,6 +45,43 @@ var app = new Vue({
                 rmp: 0
             }
             this.confirmpass = '';
+        },
+        login(){
+            if (this.userinput.length > 0 && this.passinput.length > 0) {
+                const index = this.users.findIndex((object) => {
+                    return object.username == this.userinput;
+                });
+                if(index != -1 && this.passinput === this.users[index].password){
+                    this.usession.push({...this.users[index]});//inserts the object into the empty array
+                    //this.updateLocalStorage();
+                    this.mensaje("Login success", "success");
+
+                    //setTimeout(function(){ location.href = "index.html" }, 1500);
+
+                }else{
+                    this.mensaje("Wrong user or password", "error");
+                }
+            }else{
+                this.mensaje("User and password are required", "error");
+            }
+        },
+        mensaje: function (msj, icono) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-center',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: icono,
+                title: msj
+            })
         },
     },
     created(){
