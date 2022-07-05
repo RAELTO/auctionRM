@@ -27,6 +27,7 @@ var app = new Vue({
                             ...this.newUser
                         });
                         this.clearFields();
+                        this.updateLocalStorage();
                         this.mensaje("Your account has been successfully created", "success");
                     }else{
                         this.mensaje("Passsword and confirm password doesnt match", "error");
@@ -53,10 +54,10 @@ var app = new Vue({
                 });
                 if(index != -1 && this.passinput === this.users[index].password){
                     this.usession.push({...this.users[index]});//inserts the object into the empty array
-                    //this.updateLocalStorage();
+                    this.updateLocalStorage();
                     this.mensaje("Login success", "success");
 
-                    //setTimeout(function(){ location.href = "index.html" }, 1500);
+                    setTimeout(function(){ location.href = "index.html" }, 1500);
 
                 }else{
                     this.mensaje("Wrong user or password", "error");
@@ -64,6 +65,33 @@ var app = new Vue({
             }else{
                 this.mensaje("User and password are required", "error");
             }
+        },
+        logout(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })       
+            swalWithBootstrapButtons.fire({
+                title: 'Do you want to logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, logout',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.usession = [];
+                    this.updateLocalStorage();
+                    this.mensaje("Successfully logged out", "success");
+                    setTimeout(function(){ location.href = "login.html" }, 1500);
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
         },
         mensaje: function (msj, icono) {
             const Toast = Swal.mixin({
@@ -83,16 +111,21 @@ var app = new Vue({
                 title: msj
             })
         },
+        updateLocalStorage(){
+            localStorage.setItem('users', JSON.stringify(this.users));
+            localStorage.setItem('usession', JSON.stringify(this.usession));
+        },
     },
     created(){
-        /*if (localStorage.getItem('users') !== null) {
-            this.newArrUsers = JSON.parse(localStorage.getItem('users'));
-            this.pos = JSON.parse(localStorage.getItem('pos'));
-            this.nPetsAdopted = JSON.parse(localStorage.getItem('nadopt'));
+        if (localStorage.getItem('users') !== null) {
+            this.users = JSON.parse(localStorage.getItem('users'));
         }else{
-            this.listData();
-            this.pos = this.pos;
-            this.nPetsAdopted = this.nPetsAdopted;
-        }*/
+            this.users = this.users;
+        }
+        if (localStorage.getItem('usession') !== null) {
+            this.usession = JSON.parse(localStorage.getItem('usession'));
+        }else{
+            this.usession = [];
+        }
     }
 });
