@@ -127,6 +127,24 @@ header{
 }
 /*END ERROR 401*/
 
+/*START SIGN UP*/
+#adduser .modal-body{
+    background-image: url('../images/img1.jpg');
+}
+
+#adduser .modal-body label{
+    font-weight: bold;
+    color: #000;
+    font-size: 18px;
+}
+
+#adduser .modal-header, .modal-footer{
+    background: #000;
+    color: #fff;
+}
+
+/*END SIGN UP*/
+
 /*START CARDS*/
 #characters .menu-title{
     color: #000;
