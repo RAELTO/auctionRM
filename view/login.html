@@ -12,15 +12,100 @@
         crossorigin="anonymous"
         />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="./assets/css/styles.css">
+        <link rel="stylesheet" href="../css/styles.css">
     </head>
     <body class="body2">
         <div id="app">
-            
+            <section id="login">
+                <div class="container">
+                    <div class="row logcontainer">
+                        <div class="col-sm-0 col-lg-3"></div>
+                        <div class="col-lg-6">
+                            <div class="card-login">
+                                <div class="card-header text-center">
+                                    LOG-IN
+                                </div>
+                                <div class="card-body">
+                                    <form class="mt-3">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">User Name</label>
+                                            <input v-model="userinput" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type your user">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                                            <input v-model="passinput" @keyup.enter="login" type="password" class="form-control" id="exampleInputPassword1" placeholder="Type your password">
+                                        </div>
+                                        <div class="signup">
+                                            <p><strong>Don't have an account?</strong> <a href="" class="text-light" data-bs-toggle="modal" data-bs-target="#adduser"><strong>Sign Up</strong></a></p>
+                                        </div>
+                                        <div class="row">
+                                            <button type="button" class="col-4 btn btn-dark logbtn mb-3">Enter</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-0 col-lg-3"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modals -->
+            <section>
+
+                <!-- add user -->
+                <div class="modal fade" id="adduser" tabindex="-1" aria-labelledby="adduser" aria-hidden="true" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">User Data Form</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="text-start">
+                                    <div class="mb-3">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" v-model="newUser.name" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" v-model="newUser.username" class="form-control">
+                                    </div>
+                                    <div class="mb-3 text-center">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" v-model="newUser.password" minlength="8" class="form-control" placeholder="Password here">
+                                    </div>
+                                    <div class="mb-3 text-center">
+                                        <label class="form-label">Confirm Password</label>
+                                        <input type="password" v-model="confirmpass" minlength="8" class="form-control" placeholder="Password here">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" v-model="newUser.email" class="form-control" placeholder="Email here">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">RPM</label>
+                                        <input type="number" v-model="newUser.rmp" class="form-control" readonly>
+                                        <button type="button" class="btn btn-success mt-2 mb-2">Buy RPM</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" @click="addUser">Sign Up</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /add user -->
+
+            </section>
+            <!-- /Modals -->
+
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </body>
-    <script src="./assets/js/vue.js"></script>
-    <script src="./assets/js/sweetalert2.all.min.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../js/sweetalert2.all.min.js"></script>
+    <script src="../js/main.js"></script>
 </html>
