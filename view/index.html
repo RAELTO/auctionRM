@@ -166,7 +166,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="openPack">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" v-if="trigger == 0">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" v-else @click="openPack">Close</button>
                             </div>
                         </div>
                     </div>

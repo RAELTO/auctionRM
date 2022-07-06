@@ -27,7 +27,6 @@ var app = new Vue({
         pos: '',
         option: '',
         trigger: 0,
-        historial: [],
     },
     methods: {
         addUser(){
