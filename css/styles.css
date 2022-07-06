@@ -73,7 +73,7 @@ header{
     text-align: center;
 }
 
-#login .card-login input[type="email"], input[type="password"]{
+#login .card-login input[type="text"], input[type="password"]{
     width: 80%;
     margin: auto;
 }
