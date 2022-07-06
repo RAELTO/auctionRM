@@ -12,6 +12,8 @@ var app = new Vue({
             email: '',
             rmp: 0
         },
+        cards: [],
+        rarityList: ['common', 'uncommon', 'rare', 'epic', 'legendary'],
         userinput: '',
         passinput: '',
         confirmpass: '',
@@ -92,6 +94,30 @@ var app = new Vue({
                 ) {
                 }
             })
+        },
+        async listCards(){
+
+            function random(min, max) {
+                return Math.floor((Math.random() * (max - min + 1)) + min);
+            }
+
+            this.randomId.forEach(e => e = random(1, 12));
+
+            console.log(this.randomId);
+
+            await fetch(`https://rickandmortyapi.com/api/character/${this.randomId}`)
+                .then(response => response.json())
+                .then(data => this.cards = data);
+
+            this.cards = this.cards.map(e => {
+                return{
+                    ...e,
+                    rarity: this.rarityList[random(0, 4)],
+                }
+            });
+
+            console.log(this.cards);
+            
         },
         mensaje: function (msj, icono) {
             const Toast = Swal.mixin({
