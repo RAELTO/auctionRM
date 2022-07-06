@@ -37,7 +37,7 @@
                                         Menu
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Shopping History</a></li>
+                                        <li><a class="dropdown-item" href="#">Cards Collection</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                                     </ul>
@@ -55,7 +55,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="#" v-text="`${usession[0].rmp} RMP`" data-bs-toggle="modal" data-bs-target="#packages"
-                                    title="Buy!"><strong></strong></a>
+                                    title="Buy!" @click="openPack"><strong></strong></a>
                                 </li>
                             </ul>
                         </div>
@@ -140,7 +140,8 @@
                         <div class="modal-content">
                             <div class="modal-header text-center">
                                 <h5 class="modal-title text-center" id="exampleModalLabel">Available Packages</h5>
-                                <button type="button" class="btn btn-dark back" data-bs-toggle="modal"  data-bs-target="#perfil">Regresar <i class="fa-solid fa-rotate-left"></i></button>
+                                <button type="button" class="btn btn-dark back" data-bs-toggle="modal"  data-bs-target="#perfil" v-if="trigger == 0">Regresar <i class="fa-solid fa-rotate-left"></i></button>
+                                <button type="button" class="btn btn-dark back" data-bs-dismiss="modal" aria-label="Close" v-else @click="openPack"><i class="fa-solid fa-xmark"></i></button>
                             </div>
                             <div class="modal-body">
                                 <div class="container">
@@ -163,6 +164,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="openPack">Close</button>
                             </div>
                         </div>
                     </div>

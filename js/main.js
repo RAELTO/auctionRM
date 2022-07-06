@@ -26,6 +26,7 @@ var app = new Vue({
         ],
         pos: '',
         option: '',
+        trigger: 0,
     },
     methods: {
         addUser(){
@@ -153,6 +154,13 @@ var app = new Vue({
         },
         getIndex(index){
             this.pos = index;
+        },
+        openPack(){
+            if (this.trigger == 0) {
+                this.trigger = 1;
+            }else{
+                this.trigger = 0;
+            }
         },
         buyFromIndex(){
             if (this.option === 'pse' || this.option === 'nequi') {
