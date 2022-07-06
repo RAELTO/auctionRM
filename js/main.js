@@ -24,6 +24,8 @@ var app = new Vue({
             {id: 3, name: '250 RMP', price: 20_000, rmp: 250},
             {id: 4, name: '800 RMP', price: 50_000, rmp: 800},
         ],
+        pos: '',
+        option: '',
     },
     methods: {
         addUser(){
@@ -149,9 +151,23 @@ var app = new Vue({
             });
             
         },
-        
+        getIndex(index){
+            this.pos = index;
+        },
         buyFromIndex(){
-
+            if (this.option === 'pse' || this.option === 'nequi') {
+                const index = this.users.findIndex((object) => {
+                    return object.username == this.usession[0].username;
+                });
+                this.usession[0].rmp += this.packages[this.pos].rmp;
+                this.users[index].rmp += this.packages[this.pos].rmp;
+                this.updateLocalStorage();
+                this.option = '';
+                this.mensaje("Your purchase has been made", "success");
+            }else{
+                this.mensaje("Please select one payment method", "error");
+            }
+            
         },
         mensaje: function (msj, icono) {
             const Toast = Swal.mixin({
