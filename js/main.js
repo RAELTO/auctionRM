@@ -18,6 +18,8 @@ var app = new Vue({
         passinput: '',
         confirmpass: '',
         price: '',
+
+        historial: [],
     },
     methods: {
         addUser(){
@@ -179,5 +181,8 @@ var app = new Vue({
         }
 
         this.listCards();
+    },
+    addHistory(item){
+        this.historial
     }
 });
