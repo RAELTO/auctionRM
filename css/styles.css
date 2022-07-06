@@ -177,6 +177,14 @@ header{
 #characters .card-body span{
     color: #000;
 }
+#characters .comprar-bodyModal{
+    background-color: #000;
+    color: rgb(235, 217, 217);
+}
+#comprar-bodyModal{
+    background-color: #000;
+    color: rgb(235, 217, 217);
+}
 
 #characters .card-footer{
     color: #fff;
