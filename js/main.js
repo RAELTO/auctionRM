@@ -18,6 +18,12 @@ var app = new Vue({
         passinput: '',
         confirmpass: '',
         price: '',
+        packages: [
+            {id: 1, name: '150 RMP', price: 10_000, rmp: 150}, 
+            {id: 2, name: '200 RMP', price: 15_000, rmp: 200},
+            {id: 3, name: '250 RMP', price: 20_000, rmp: 250},
+            {id: 4, name: '800 RMP', price: 50_000, rmp: 800},
+        ],
     },
     methods: {
         addUser(){
@@ -142,6 +148,10 @@ var app = new Vue({
                 }
             });
             
+        },
+        
+        buyFromIndex(){
+
         },
         mensaje: function (msj, icono) {
             const Toast = Swal.mixin({

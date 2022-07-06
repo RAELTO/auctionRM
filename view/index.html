@@ -104,26 +104,103 @@
                 </div>
             </section>
             <!-- /characters -->
-            <!-- inicioModalPerfil -->        
-            <!-- Modal -->
-            <div class="modal fade" id="perfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel" v-text="usession[0].name"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                        ...
-                        </div>
-                        <div class="modal-footer" id="footerModal">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+
+            <!-- INICIO MODALES -->
+            <section>
+                <!-- inicioModalPerfil -->
+                <div class="modal fade" id="perfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Name: <span v-text="usession[0].name" class="text-success"></span></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5 class="modal-title" id="exampleModalLabel">Username: <span v-text="usession[0].username"></span></h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Email: <span v-text="usession[0].email"></span></h5>
+                                <h5 class="modal-title" id="exampleModalLabel">RMP: <strong><span v-text="usession[0].rmp" class="text-success"></span></strong></h5>
+                                <button type="button" class="btn btn-primary mt-1 mb-1" data-bs-toggle="modal" data-bs-target="#packages">Buy RMP</button>
+                            </div>
+                            <div class="modal-footer" id="footerModal">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- finModalPerfil -->
+                <!-- finModalPerfil -->
+
+                <!-- Start packages modal -->
+                <div class="modal fade" id="packages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h5 class="modal-title text-center" id="exampleModalLabel">Available Packages</h5>
+                                <button type="button" class="btn btn-dark back" data-bs-toggle="modal"  data-bs-target="#perfil">Regresar <i class="fa-solid fa-rotate-left"></i></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-6 col-md-6 col-lg-6 mt-3 mb-4" v-for="(item, index) in packages" :key="item.id">
+                                            <div class="card" data-bs-toggle="modal">
+                                                <img src="../images/package1.jpeg" class="card-img-top" alt="selectimg">
+                                                <div class="card-body">
+                                                    <h5 class="text-center mt-3 mb-3" v-text="item.name"><strong></strong></h5>
+                                                    <h5 class="text-center" v-text="`$ ${item.price} COP`"><strong></strong></h5>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <button type="button" class="btn btn-primary col" data-bs-toggle="modal"  data-bs-target="#payments">Buy!</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End packages modal -->
+
+                <!-- modal metodo pago -->
+                <div class="modal fade" id="payments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content comprar-bodyModal">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Metodo de pago</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    PSE
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                                    checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                    NEQUI
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#packages">Atras</button>
+                                <button type="button" class="btn btn-success">
+                                    Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /modal metodo pago -->
+
+            </section>
+            <!-- FIN MODALES -->
 
             <!-- FOOTER -->
             <footer id="footer" class="pb-4 pt-4">
@@ -150,7 +227,7 @@
                         </div>
                     </div>
                     <h6 class="text-center mt-4">© Copyright - All rights reserved</h6>
-                    <h6 class="text-center mt-4">Elias Toro</h6>
+                    <h6 class="text-center mt-4">Auctions RM</h6>
                 </div>
             </footer>
             <!-- /FOOTER -->

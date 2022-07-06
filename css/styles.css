@@ -215,6 +215,30 @@ header{
 
 /*END CARDS*/
 
+
+/*START MODALS*/
+#packages .container .card:hover{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+#packages .container .card-body, .card-footer{
+    background: #000;
+    color: #fff;
+}
+
+#payments .form-check label{
+    color: #669afb;
+}
+
+#payments .modal-header h5{
+    color: #669afb;
+}
+
+#payments .modal-body, #payments .modal-header{
+    background: #000;
+}
+/* END MODALS */
+
 /*START FOOTER*/
 
 #footer {
