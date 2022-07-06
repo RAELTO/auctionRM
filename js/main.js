@@ -26,6 +26,8 @@ var app = new Vue({
         ],
         pos: '',
         option: '',
+
+        historial: [],
     },
     methods: {
         addUser(){
@@ -218,5 +220,8 @@ var app = new Vue({
         }
 
         this.listCards();
+    },
+    addHistory(item){
+        this.historial
     }
 });
