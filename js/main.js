@@ -169,6 +169,19 @@ var app = new Vue({
             }
             
         },
+        buyFromLogin(){
+            if (this.option === 'pse' || this.option === 'nequi') {
+                const index = this.users.findIndex((object) => {
+                    return object.username == this.users[this.users.length - 1].username;
+                });
+                this.users[index].rmp += this.packages[this.pos].rmp;
+                this.updateLocalStorage();
+                this.option = '';
+                this.mensaje("Your purchase has been made", "success");
+            }else{
+                this.mensaje("Please select one payment method", "error");
+            }
+        },
         mensaje: function (msj, icono) {
             const Toast = Swal.mixin({
                 toast: true,
