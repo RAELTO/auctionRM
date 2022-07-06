@@ -193,7 +193,7 @@ header{
 
 #characters .card-footer{
     color: #fff;
-    background-color: rgb(127, 228, 88);
+    background: linear-gradient(90deg, #7aef4f, #cff97b 25%, #01c21e);
 }
 
 #characters .card-footer img{
@@ -238,3 +238,6 @@ header{
     color: #fff;
 }
 /*END FOOTER*/
+#footerModal{
+    background: linear-gradient(90deg, #7aef4f, #cff97b 25%, #01c21e);
+}
