@@ -17,6 +17,7 @@ var app = new Vue({
         userinput: '',
         passinput: '',
         confirmpass: '',
+        price: '',
     },
     methods: {
         addUser(){
@@ -101,11 +102,12 @@ var app = new Vue({
                 return Math.floor((Math.random() * (max - min + 1)) + min);
             }
 
-            this.randomId.forEach(e => e = random(1, 12));
+            const ids = [
+                random(1,826),random(1,826),random(1,826),random(1,826),random(1,826),random(1,826),random(1,826),
+                random(1,826),random(1,826),random(1,826),random(1,826),random(1,826)
+            ]
 
-            console.log(this.randomId);
-
-            await fetch(`https://rickandmortyapi.com/api/character/${this.randomId}`)
+            await fetch(`https://rickandmortyapi.com/api/character/${ids}`)
                 .then(response => response.json())
                 .then(data => this.cards = data);
 
@@ -113,10 +115,32 @@ var app = new Vue({
                 return{
                     ...e,
                     rarity: this.rarityList[random(0, 4)],
+                    price: 0
                 }
             });
 
-            console.log(this.cards);
+            this.cards.forEach(e => {
+                switch (e.rarity) {
+                    case "common":
+                        e.price = 100;
+                        break;
+                    case "uncommon":
+                        e.price = 150;
+                        break;
+                    case "rare":
+                        e.price = 200;
+                        break;
+                    case "epic":
+                        e.price = 250;
+                        break;
+                    case "legendary":
+                        e.price = 300;
+                        break;
+
+                    default:
+                        break;
+                }
+            });
             
         },
         mensaje: function (msj, icono) {
@@ -153,5 +177,7 @@ var app = new Vue({
         }else{
             this.usession = [];
         }
+
+        this.listCards();
     }
 });

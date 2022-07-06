@@ -203,10 +203,16 @@ header{
     display: flex;
 }
 
+#characters .card-footer button{
+    margin-right: 5px;
+}
+
 #characters .admintable img{
     border-radius: 50%;
     border: 2px solid #4f94ef;
 }
+
+
 /*END CARDS*/
 
 /*START FOOTER*/

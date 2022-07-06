@@ -70,15 +70,15 @@
                     </div>
                     <!-- characters cards -->
                     <div class="row">
-                        <div class="col-md-6 col-lg-3 mt-3 mb-4">
+                        <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in cards" :key="index">
                             <div class="card text-white bg-info mb-3">
-                                <img src="../images/img.png" class="card-img-top" alt="pr1">
+                                <img :src="item.image" class="card-img-top" alt="pr1">
                                 <div class="card-body">                                  
-                                    <h5 class="card-title">Nombre: <span></span></h5>                                    
-                                    <h5 class="card-title">Especie: <span></span></h5>                                    
-                                    <h5 class="card-title">Rareza: <span></span></h5>
+                                    <h5 class="card-title">Nombre: <span v-text="item.name"></span></h5>                                    
+                                    <h5 class="card-title">Especie: <span v-text="item.species"></span></h5>                                    
+                                    <h5 class="card-title">Rareza: <span v-text="item.rarity"></span></h5>
                                     <div>
-                                        <h4 class="card-title text-center">500<span> RMP</span></h4>
+                                        <h4 class="card-title text-center" v-text="`${item.price} RMP`">500</h4>
                                     </div>                                    
                                     <div class="input-group mb-2 mr-sm-2">
                                         <div class="input-group-prepend">
@@ -91,7 +91,7 @@
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col-1"></div>
-                                        <button type="button" class="col-5 btn btn-success">Ofrecer</button>
+                                        <button type="button" class="col-5 btn btn-success">Ofertar</button>
                                         <button type="button" class="col-5 btn btn-danger">Salir</button>
                                         <div class="col-1"></div>
                                     </div> 
