@@ -177,7 +177,7 @@ var app = new Vue({
                     return object.username == this.usession[0].username;
                 });
                 this.usession[0].rmp += this.packages[this.pos].rmp;
-                this.users[index].rmp += this.packages[this.pos].rmp;
+                this.users[index].rmp = this.usession[0].rmp;
                 this.updateLocalStorage();
                 this.option = '';
                 this.mensaje("Your purchase has been made", "success");
@@ -264,10 +264,12 @@ var app = new Vue({
                     }
                     return [...acc, cv];
                 }, []);
+                console.log(this.users[pos]);
                 this.usession[0] = this.users[pos];
                 this.updateLocalStorage();
                 this.resetCard(item);
                 this.mensaje("Congrats! the card is now yours!", "success");
+                setTimeout(function(){ location.href = 'index.html' }, 1000);
             }else if(this.winner == ''){
                 this.mensaje("Oops The machine has win the bid, better luck the next time", "warning");
             }
@@ -382,6 +384,5 @@ var app = new Vue({
         }
 
         this.attemptsM = random(1,4);
-        console.log(this.attemptsM);
     },
 });
