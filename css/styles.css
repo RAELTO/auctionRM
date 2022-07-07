@@ -207,12 +207,6 @@ header{
     margin-right: 5px;
 }
 
-#characters .admintable img{
-    border-radius: 50%;
-    border: 2px solid #4f94ef;
-}
-
-
 /*END CARDS*/
 
 
@@ -237,6 +231,11 @@ header{
 #payments .modal-body, #payments .modal-header{
     background: #000;
 }
+
+#historial .modal-body span{
+    color: #000;
+}
+
 /* END MODALS */
 
 /*START FOOTER*/

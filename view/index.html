@@ -37,11 +37,10 @@
                                         Menu
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Cards Collection</a></li>
+                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#historial">Cards Collection</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#historial" href="#">Historial</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
@@ -79,6 +78,7 @@
                         <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in cards" :key="index">
                             <div class="card text-white bg-info mb-3">
                                 <img :src="item.image" class="card-img-top" alt="pr1">
+                                <h5 class="text-center" v-if="item.startCounter === true">Remaining Bids: <span class="text-danger" v-text="attemptsM"></span></h5>
                                 <div class="card-body">                                  
                                     <h5 class="card-title">Nombre: <span v-text="item.name"></span></h5>                                    
                                     <h5 class="card-title">Especie: <span v-text="item.species"></span></h5>                                    
@@ -90,15 +90,16 @@
                                         <div class="input-group-prepend">
                                         <div class="input-group-text">$</div>
                                         </div>
-                                        <input type="number" class="form-control" id="" placeholder="Valor">
+                                        <input type="number" class="form-control" id="" v-model.number="cards[index].amount">
                                     </div> 
                                     
                                 </div>
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col-1"></div>
-                                        <button type="button" class="col-5 btn btn-success">Ofertar</button>
-                                        <button type="button" class="col-5 btn btn-danger">Salir</button>
+                                        <button type="button" class="col-5 btn btn-primary" v-if="item.check === false" @click="bidUp(item)">Ofertar</button>
+                                        <button type="button" class="col-10 btn btn-success" v-else @click="setWinner(item)">Chequear</button>
+                                        <button type="button" class="col-5 btn btn-danger" v-if="item.check === false" @click="getOut(item)">Salir</button>
                                         <div class="col-1"></div>
                                     </div> 
                                 </div>
@@ -203,45 +204,52 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- finModalPerfil -->
-            <!-- inicioModalHistorial -->        
-            <!-- Modal -->
-            <div class="modal fade" id="historial" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"> Historial de Compra</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in historial" :key="index">
-                                    <div class="card text-white bg-info mb-3">
-                                        <img :src="item.image" class="card-img-top" alt="pr1">
-                                        <div class="card-body">                                  
-                                            <h5 class="card-title">Fecha: <span v-text="item.name"></span></h5>                                    
+                <!-- fin modal metodo pago -->
+
+                <!-- inicioModalHistorial -->
+                <div class="modal fade" id="historial" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Collection and Shopping History</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" v-if="usession[0].collection.length > 0">
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in usession[0].collection" :key="index">
+                                        <div class="card text-white bg-info mb-3">
+                                            <img :src="item.image" class="card-img-top" alt="pr1">
+                                            <div class="card-body">                                  
+                                                <h5 class="card-title">Nombre: <span v-text="item.name"></span></h5>                                    
+                                                <h5 class="card-title">Especie: <span v-text="item.species"></span></h5>                                    
+                                                <h5 class="card-title">Rareza: <span v-text="item.rarity"></span></h5>
+                                                <h5 class="card-title">En Posesión: <span v-text="item.qty"></span></h5>
+                                                <!-- <h5 class="card-title">Fecha Compra: <span v-text="item.datePurchased"></span></h5> -->
+                                                <div>
+                                                    <h5 class="card-title text-center text-dark" v-if="item.qty === 1">Valor Pagado:</span></h5>
+                                                    <h5 class="card-title text-center" v-if="item.qty === 1" v-text="`${item.amount} RMP`"></h5>
+                                                    <h5 class="card-title text-center text-dark" v-if="item.qty > 1">Promedio Pagado:</h5>
+                                                    <h5 class="card-title text-center" v-if="item.qty > 1" v-text="`${item.amount} RMP`"></h5>
+                                                </div>   
+                                            </div>
+                                            <div class="card-footer">
+                                            </div>
                                         </div>
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <!-- <div class="col-1"></div>
-                                                <button type="button" class="col-5 btn btn-success">Ofertar</button>
-                                                <button type="button" class="col-5 btn btn-danger">Salir</button>
-                                                <div class="col-1"></div> -->
-                                            </div> 
-                                        </div>
+                                        <hr>
                                     </div>
-                                    <hr>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer" id="footerModal">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <div class="modal-body" v-else>
+                                <h1 class="card-title text-center"><strong>Nothing here...</strong></h1>
+                            </div>
+                            <div class="modal-footer" id="footerModal">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- finModalHistorial -->
             </div>
-            <!-- finModalHistorial -->
 
             <!-- FOOTER -->
             <footer id="footer" class="pb-4 pt-4">
