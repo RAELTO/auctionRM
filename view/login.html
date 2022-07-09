@@ -61,15 +61,15 @@
                             <h5 class="modal-title" id="exampleModalLabel">User Data Form</h5>
                             <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body bg-info">
                                 <form class="text-start">
                                     <div class="mb-3">
-                                        <label class="form-label">Name</label>
-                                        <input type="text" v-model="newUser.name" class="form-control" placeholder="Your name here">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" v-model="newUser.name" class="form-control" placeholder="Your full name here">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Username</label>
-                                        <input type="text" v-model="newUser.username" class="form-control" placeholder="Your username here">
+                                        <input type="text" v-model="newUser.username" class="form-control" placeholder="Your Username Here">
                                     </div>
                                     <div class="mb-3 text-center">
                                         <label class="form-label">Password</label>
@@ -84,14 +84,17 @@
                                         <input type="email" v-model="newUser.email" class="form-control" placeholder="Email here">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">RPM</label>
-                                        <input type="number" v-model="newUser.rmp" class="form-control" readonly>
-                                        <button type="button" class="btn btn-success mt-2 mb-2" @click="addUser" data-bs-toggle="modal" data-bs-target="#packages">Buy RPM</button>
+                                        <label class="form-label">RMP</label>
+                                        <!-- <input type="number" v-model="newUser.rmp" class="form-control" readonly> -->
+                                        <button type="button" class="btn btn-success mt-2 mb-2" @click="addUser" data-bs-toggle="modal" data-bs-target="#packages">Buy RMP</button>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" @click="addUser">Sign Up</button>
+                                <button type="button" class="btn btn-primary" @click="addUser" 
+                                v-if="newUser.name.length > 0 && newUser.username.length > 0 && newUser.password.length > 0 && confirmpass.length > 0 && newUser.email.length > 0 && confirmpass == newUser.password" 
+                                data-bs-dismiss="modal" >Sign Up</button>
+                                <button type="button" class="btn btn-primary" @click="addUser" v-else>Sign Up</button>
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                             </div>
                         </div>

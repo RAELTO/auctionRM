@@ -136,9 +136,9 @@ header{
 /*END ERROR 401*/
 
 /*START SIGN UP*/
-#adduser .modal-body{
+/*#adduser .modal-body{
     background-image: url('../images/img1.jpg');
-}
+}*/
 
 #adduser .modal-body label{
     font-weight: bold;
