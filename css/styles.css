@@ -61,7 +61,11 @@ header{
 
 /*START LOGIN*/
 .body2{
-    background: linear-gradient(90deg, #7aef4f, #cff97b 25%, #01c21e);
+    background-image: url('../images/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #7aef4f;
 }
 
 #login .card-login{
@@ -117,6 +121,10 @@ header{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+}
+
+#login .signup a{
+    color: #7aef4f
 }
 /*END LOGIN*/
 

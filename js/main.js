@@ -6,7 +6,6 @@ var app = new Vue({
         users: [],
         usession: [],//stores user session profile
         newUser: {
-            name: '',
             username: '',
             password: '',
             email: '',
@@ -37,7 +36,7 @@ var app = new Vue({
     methods: {
         addUser(){
             if (
-                this.newUser.name.length > 0 && this.newUser.username.length > 0
+                this.newUser.username.length > 0
                 && this.newUser.password.length > 0 && this.newUser.email.length > 0
                 ) {
                     if (this.confirmpass === this.newUser.password) {
