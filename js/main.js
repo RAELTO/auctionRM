@@ -30,7 +30,6 @@ var app = new Vue({
         trigger: 0,//to be used in packages modals to show or not the return button
         onMachine: 0,
         attemptsM: 0,
-        winner: '',//needs to be in local storage
     },
     methods: {
         addUser(){
@@ -134,7 +133,8 @@ var app = new Vue({
                     startTimer: 1,
                     check: false,
                     minutes: 0,
-                    seconds: 30
+                    seconds: 30,
+                    winner: '',
                 }
             });
 
@@ -213,7 +213,7 @@ var app = new Vue({
                     item.price = Math.round(item.amount*1.1);
                     this.mensaje("Your bid has been made!", "success");
                     item.startCounter = true;
-                    this.winner = this.usession[0].username;
+                    item.winner = this.usession[0].username;
                     this.users[pos].rmp = this.usession[0].rmp;
                     this.updateLocalStorage();
 
@@ -267,14 +267,14 @@ var app = new Vue({
         },
         machineBid(item){
             item.price = Math.round(item.price*1.1);
-            this.winner = 'Machine',
+            item.winner = 'Machine',
             this.mensaje("Oops! the machine has made a new bid!", "warning");
         },
         setWinner(item){
             const pos = this.users.findIndex((object) => {
-                return object.username == this.winner;
+                return object.username == item.winner;
             });
-            if (this.winner !== 'Machine') {
+            if (item.winner !== 'Machine') {
                 const date = new Date();
                 this.users[pos].collection.push({...item, qty: 1, datePurchased: date.toLocaleDateString()});
                 this.users[pos].collection = this.users[pos].collection.reduce((acc, cv) => {
@@ -299,8 +299,8 @@ var app = new Vue({
                 }
                 this.updateLocalStorage();
                 this.resetCard(item);
-                this.mensaje(`The auction winner for the card number: ${item.id}, is ${this.winner}`, "success");
-            }else if(this.winner == 'Machine'){
+                this.mensaje(`The auction winner for the card number: ${item.id}, is ${item.winner}`, "success");
+            }else if(item.winner == 'Machine'){
                 this.resetCard(item);
                 this.mensaje(`The machine has win the card number: ${item.id}, try it again`, "warning");
             }
@@ -355,7 +355,6 @@ var app = new Vue({
             localStorage.setItem('users', JSON.stringify(this.users));
             localStorage.setItem('usession', JSON.stringify(this.usession));
             localStorage.setItem('cards', JSON.stringify(this.cards));
-            localStorage.setItem('winner', JSON.stringify(this.winner));
         },
     },
     created(){

@@ -80,7 +80,7 @@
                                 <img :src="item.image" class="card-img-top" alt="pr1">
                                 <h5 class="text-center text-danger" v-if="item.startCounter === true">Remaining Time: <strong v-text="item.minutes"></strong>:<strong v-if="item.seconds < 10">0</strong><strong v-text="item.seconds"></strong></h5>
                                 <div class="card-body">
-                                    <h5 class="card-title text-success" v-if="item.startCounter === true">Winning: <span v-text="winner"></span></h5>
+                                    <h5 class="card-title text-success" v-if="item.startCounter === true">Winning: <span v-text="item.winner"></span></h5>
                                     <h5 class="card-title">Number: <span v-text="item.id"></span></h5>
                                     <h5 class="card-title">Nombre: <span v-text="item.name"></span></h5>
                                     <h5 class="card-title">Especie: <span v-text="item.species"></span></h5>
