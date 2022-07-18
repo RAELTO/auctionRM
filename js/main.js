@@ -10,7 +10,8 @@ var app = new Vue({
             password: '',
             email: '',
             rmp: 0,
-            collection: []
+            collection: [],
+            accumulator: 0
         },
         cards: [],
         rarityList: ['common', 'uncommon', 'rare', 'epic', 'legendary'],
@@ -27,11 +28,9 @@ var app = new Vue({
         pos: '',
         option: '',
         trigger: 0,//to be used in packages modals to show or not the return button
-        amount: 0,
         onMachine: 0,
         attemptsM: 0,
-        minutes: 2,
-        winner: '',
+        winner: '',//needs to be in local storage
     },
     methods: {
         addUser(){
@@ -132,7 +131,10 @@ var app = new Vue({
                     price: 0,
                     amount: 0,
                     startCounter: false,
+                    startTimer: 1,
                     check: false,
+                    minutes: 0,
+                    seconds: 30
                 }
             });
 
@@ -208,43 +210,74 @@ var app = new Vue({
                     const pos = this.users.findIndex((object) => {
                         return object.username == this.usession[0].username;
                     });
-                    //this.users[pos].rmp -= item.amount;
-                    this.usession[0].rmp -= item.amount;
                     item.price = Math.round(item.amount*1.1);
                     this.mensaje("Your bid has been made!", "success");
                     item.startCounter = true;
                     this.winner = this.usession[0].username;
-
-                    if(this.attemptsM == 0){
-                        this.users[pos].rmp = this.usession[0].rmp;
-                        console.log('HOLA AQUI');
-                        this.updateLocalStorage();
-                    }
+                    this.users[pos].rmp = this.usession[0].rmp;
+                    this.updateLocalStorage();
 
                     this.onMachine = 1;
                     if (this.onMachine == 1) {
                         if (this.attemptsM > 0) {
                             this.attemptsM -= 1;
-                            function machineBid(){
-                                item.price = Math.round(item.price*1.1);
-                                this.winner = '',
-                                alert('Oops the machine has made a new bid');
-                            }
-                            setTimeout(function(){ machineBid(); }, 2500);
+                            setTimeout(() => { this.machineBid(item) }, 3500);
                         }else{
                             this.onMachine = 0;
-                            item.check = true;
                             this.updateLocalStorage();
                         }
                     }
+                    
+                    if (item.startTimer === 1) {
+                        this.timer(item);
+                        item.startTimer = 0;
+                        this.updateLocalStorage();
+                    }
+
                 }
             }
         },
+        timer(item){
+            const myTimer = () => {
+                if(item.seconds != 0){
+                    item.seconds -= 1;
+                    this.updateLocalStorage();
+                    console.log(`segundo: ${item.seconds}`);
+                }else{
+                    item.seconds = 60;
+                    item.minutes -= 1;
+                    this.updateLocalStorage();
+                    console.log(`minutos restantes: ${item.minutes}`);
+                }
+                if(item.minutes == 0 && item.seconds == 0){
+                    myStop();
+                    this.setWinner(item);
+                    this.usession[0].accumulator = 0;
+                    item.startTimer = 1;
+                    this.updateLocalStorage();
+                }
+                }
+    
+                function myStop() {
+                    clearInterval(myInterval);
+                    item.startCounter = false;
+                    item.minutes = 0;
+                    item.seconds = 30;
+                    console.log('Time stopped');
+                }
+    
+                const myInterval = setInterval(myTimer, 1000);
+        },
+        machineBid(item){
+            item.price = Math.round(item.price*1.1);
+            this.winner = 'Machine',
+            this.mensaje("Oops! the machine has made a new bid!", "warning");
+        },
         setWinner(item){
             const pos = this.users.findIndex((object) => {
-                return object.username == this.usession[0].username;
+                return object.username == this.winner;
             });
-            if (this.winner === this.usession[0].username) {
+            if (this.winner !== 'Machine') {
                 const date = new Date();
                 this.users[pos].collection.push({...item, qty: 1, datePurchased: date.toLocaleDateString()});
                 this.users[pos].collection = this.users[pos].collection.reduce((acc, cv) => {
@@ -263,52 +296,19 @@ var app = new Vue({
                     }
                     return [...acc, cv];
                 }, []);
-                console.log(this.users[pos]);
-                this.usession[0] = this.users[pos];
+                this.users[pos].rmp -= Math.round(item.price/1.1);
+                if (this.usession.length > 0) {
+                    this.usession[0] = this.users[pos];
+                }
                 this.updateLocalStorage();
                 this.resetCard(item);
-                this.mensaje("Congrats! the card is now yours!", "success");
-                setTimeout(function(){ location.href = 'index.html' }, 1000);
-            }else if(this.winner == ''){
-                this.mensaje("Oops The machine has win the bid, better luck the next time", "warning");
+                this.mensaje(`The auction winner for the card number: ${item.id}, is ${this.winner}`, "success");
+            }else if(this.winner == 'Machine'){
+                this.resetCard(item);
+                this.mensaje(`The machine has win the card number: ${item.id}, try it again`, "warning");
             }
         },
-        getOut(item){
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })       
-            swalWithBootstrapButtons.fire({
-                title: 'Do you want to quit from this auction?',
-                text: "If yes, Your Points will be returned",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, Quit',
-                cancelButtonText: 'No, Cancel',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const pos = this.users.findIndex((object) => {
-                        return object.username == this.usession[0].username;
-                    });
-                    this.usession[0].rmp = this.users[pos].rmp;
-                    this.amount = 0;
-                    this.resetCard(item);
-                    this.mensaje("Your points were returned", "success");
-                    this.updateLocalStorage();
-                } else if (
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                }
-            })
-
-        },
         resetCard(item){
-            item.check = false;
-            item.startCounter = false;
             item.amount = 0;
             switch (item.rarity) {
                 case "common":
@@ -341,7 +341,7 @@ var app = new Vue({
                 toast: true,
                 position: 'top-center',
                 showConfirmButton: false,
-                timer: 1500,
+                timer: 2500,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                     toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -358,6 +358,7 @@ var app = new Vue({
             localStorage.setItem('users', JSON.stringify(this.users));
             localStorage.setItem('usession', JSON.stringify(this.usession));
             localStorage.setItem('cards', JSON.stringify(this.cards));
+            localStorage.setItem('winner', JSON.stringify(this.winner));
         },
     },
     created(){
@@ -382,6 +383,18 @@ var app = new Vue({
             return Math.floor((Math.random() * (max - min + 1)) + min);
         }
 
-        this.attemptsM = random(1,4);
+        this.attemptsM = random(1,3);
+
+        /*if (this.cards.length > 0) {
+            const index = this.cards.findIndex((object) => {
+                return object.id == this.id;
+            });
+            if (this.cards[index].startTimer === 1) {
+                this.timer(item);
+                this.cards[index].startTimer = 0;
+                this.updateLocalStorage();
+            }
+        }*/
+
     },
 });

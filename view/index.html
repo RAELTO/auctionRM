@@ -39,7 +39,7 @@
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#historial">Cards Collection</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#instructions">Instructions</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                     </ul>
                                 </li>
@@ -78,10 +78,12 @@
                         <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in cards" :key="index">
                             <div class="card text-white bg-info mb-3">
                                 <img :src="item.image" class="card-img-top" alt="pr1">
-                                <h5 class="text-center" v-if="item.startCounter === true">Remaining Bids: <span class="text-danger" v-text="attemptsM"></span></h5>
-                                <div class="card-body">                                  
-                                    <h5 class="card-title">Nombre: <span v-text="item.name"></span></h5>                                    
-                                    <h5 class="card-title">Especie: <span v-text="item.species"></span></h5>                                    
+                                <h5 class="text-center text-danger" v-if="item.startCounter === true">Remaining Time: <strong v-text="item.minutes"></strong>:<strong v-if="item.seconds < 10">0</strong><strong v-text="item.seconds"></strong></h5>
+                                <div class="card-body">
+                                    <h5 class="card-title text-success" v-if="item.startCounter === true">Winning: <span v-text="winner"></span></h5>
+                                    <h5 class="card-title">Number: <span v-text="item.id"></span></h5>
+                                    <h5 class="card-title">Nombre: <span v-text="item.name"></span></h5>
+                                    <h5 class="card-title">Especie: <span v-text="item.species"></span></h5>
                                     <h5 class="card-title">Rareza: <span v-text="item.rarity"></span></h5>
                                     <div>
                                         <h4 class="card-title text-center" v-text="`${item.price} RMP`">500</h4>
@@ -97,9 +99,9 @@
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col-1"></div>
-                                        <button type="button" class="col-5 btn btn-primary" v-if="item.check === false" @click="bidUp(item)">Ofertar</button>
-                                        <button type="button" class="col-10 btn btn-success" v-else @click="setWinner(item)">Chequear</button>
-                                        <button type="button" class="col-5 btn btn-danger" v-if="item.check === false" @click="getOut(item)">Salir</button>
+                                        <button type="button" class="col-10 btn btn-primary" v-if="item.check === false" @click="bidUp(item)">Ofertar</button>
+                                        <!-- <button type="button" class="col-10 btn btn-success" v-else @click="setWinner(item)">Chequear</button> -->
+                                        <!-- <button type="button" class="col-5 btn btn-danger" v-if="item.check === false" @click="getOut(item)">Salir</button> -->
                                         <div class="col-1"></div>
                                     </div> 
                                 </div>
@@ -136,6 +138,28 @@
                     </div>
                 </div>
                 <!-- finModalPerfil -->
+
+                <!-- Guide Modal -->
+                <div class="modal fade" id="instructions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-primary" id="exampleModalLabel"><strong>Instructions</strong></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5 class="modal-title" id="exampleModalLabel"><span><strong class="text-primary">1.</strong></span> You can made a bid for each card using RMP (Rick and Morty Points)</h5>
+                                <h5 class="modal-title" id="exampleModalLabel"><span><strong class="text-primary">2.</strong></span> A timer will appear in the card if you made a bid</h5>
+                                <h5 class="modal-title" id="exampleModalLabel"><span><strong class="text-primary">3.</strong></span> The price will increase for every new bid made</h5>
+                                <h5 class="modal-title" id="exampleModalLabel"><span><strong class="text-primary">4.</strong></span> The machine will made its own bid with a random number of attempts</h5>
+                                <h5 class="modal-title" id="exampleModalLabel"><span><strong class="text-primary">5.</strong></span> If you bid is greater than the machine bid or other user's bid then you win the card</h5>
+                                <h5 class="modal-title" id="exampleModalLabel"><span><strong class="text-primary">6.</strong></span> The RMP last bid will be discounted from the user RMP balance only if the user wins</h5>
+                                <h5 class="modal-title" id="exampleModalLabel"><span><strong class="text-primary">7.</strong></span> When the auction time is over, then a winner will be defined</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Guide Modal -->
 
                 <!-- Start packages modal -->
                 <div class="modal fade" id="packages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
@@ -219,7 +243,8 @@
                                     <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in usession[0].collection" :key="index">
                                         <div class="card text-white bg-info mb-3">
                                             <img :src="item.image" class="card-img-top" alt="pr1">
-                                            <div class="card-body">                                  
+                                            <div class="card-body">
+                                                <h5 class="card-title">Number: <span v-text="item.id"></span></h5>
                                                 <h5 class="card-title">Nombre: <span v-text="item.name"></span></h5>                                    
                                                 <h5 class="card-title">Especie: <span v-text="item.species"></span></h5>                                    
                                                 <h5 class="card-title">Rareza: <span v-text="item.rarity"></span></h5>
