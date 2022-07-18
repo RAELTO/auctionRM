@@ -204,7 +204,7 @@ var app = new Vue({
             if (item.amount <= item.price) {
                 this.mensaje("The amount must be greater than the actual price", "error");
             }else{
-                if (this.usession[0].rmp < item.price) {
+                if (this.usession[0].rmp < item.price || item.amount > this.usession[0].rmp ) {
                     this.mensaje("Insufficient RMP, please buy more", "error");
                 }else{
                     const pos = this.users.findIndex((object) => {
