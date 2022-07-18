@@ -242,12 +242,10 @@ var app = new Vue({
                 if(item.seconds != 0){
                     item.seconds -= 1;
                     this.updateLocalStorage();
-                    console.log(`segundo: ${item.seconds}`);
                 }else{
                     item.seconds = 60;
                     item.minutes -= 1;
                     this.updateLocalStorage();
-                    console.log(`minutos restantes: ${item.minutes}`);
                 }
                 if(item.minutes == 0 && item.seconds == 0){
                     myStop();
@@ -263,7 +261,6 @@ var app = new Vue({
                     item.startCounter = false;
                     item.minutes = 0;
                     item.seconds = 30;
-                    console.log('Time stopped');
                 }
     
                 const myInterval = setInterval(myTimer, 1000);
